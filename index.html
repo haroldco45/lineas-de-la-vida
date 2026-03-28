@@ -15,7 +15,7 @@
         <p class="subtitulo">Un proyecto de transformación personal</p>
     </header>
 
-    <main class="templo">
+    <main class="templo" id="escenarioTemplo">
         <div class="arco">
             <span class="numero-arco">1</span>
             <span class="tag-puerta">PARA CRITICAR</span>
@@ -43,10 +43,10 @@
         </div>
     </main>
 
-    <section class="panel-flotante">
+    <section class="panel-flotante" id="panelActivo">
         <div class="panel-header">
             <span>CENTRO DE INTERACCIÓN ACTIVA</span>
-            <button class="btn-close">×</button>
+            <button class="btn-close" onclick="togglePanel()">✕ Minimizar</button>
         </div>
         
         <div class="panel-body">
@@ -57,9 +57,9 @@
                 </div>
                 <div class="karma-meter">
                     <div class="logo-vibras">
-                        <img src="https://i.ibb.co/3Ym9H0p/vibras-logo.png" alt="Vibras Positivas" style="width: 50px;">
+                        <img src="https://i.ibb.co/3Ym9H0p/vibras-logo.png" alt="Vibras Positivas" style="width: 60px; filter: drop-shadow(0 0 5px gold);">
                     </div>
-                    <p>Karma Level: <strong>Alto Impacto</strong></p>
+                    <p>Karma Level: <strong id="karma-txt">Alto Impacto</strong></p>
                 </div>
             </div>
 
@@ -72,8 +72,8 @@
     </section>
 
     <nav class="nav-inferior">
-        <div class="nav-item"><span>🏠</span><br>Inicio</div>
-        <div class="nav-item"><span>📊</span><br>Stats</div>
+        <div class="nav-item" onclick="togglePanel()"><span>🏠</span><br>Inicio</div>
+        <div class="nav-item" onclick="togglePanel()"><span>📊</span><br>Stats</div>
         <div class="nav-item"><span>👥</span><br>Comunidad</div>
         <div class="nav-item"><span>⚙️</span><br>Perfil</div>
     </nav>

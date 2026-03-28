@@ -1,48 +1,44 @@
-// --- MOTOR DE IA DE VIBRAS POSITIVAS ---
-const respuestasIA = {
-    criticar: [
-        "IA Reflexiva: ¿Esta crítica construye algo en ti o solo drena tu energía?",
-        "IA Reflexiva: Recuerda que lo que ves en otros es a menudo un espejo de lo que debemos sanar.",
-        "IA Reflexiva: ¿Cómo podrías transformar esta queja en una petición amable?",
-        "IA Reflexiva: Antes de juzgar, intenta comprender la batalla que el otro está librando."
-    ],
-    chismear: [
-        "IA Reflexiva: Las palabras son semillas. ¿Qué estás sembrando hoy en tu entorno?",
-        "IA Reflexiva: Si no es verdad, bueno o útil, ¿realmente vale la pena repetirlo?",
-        "IA Reflexiva: El chisme se detiene cuando llega al oído de alguien sabio.",
-        "IA Reflexiva: Eleva tu conversación. Habla de ideas y sueños, no de personas."
-    ],
-    alentar: ["¡Gracias por ser luz! Tu palabra de aliento puede cambiarle el día a alguien."],
-    ayudar: ["Acción impecable. Ayudar es la forma más alta de Vibras Positivas."]
+const motorIA = {
+    criticar: "Reflexión IA: ¿Esta crítica ayuda a construir o solo libera tensión negativa?",
+    chismear: "Reflexión IA: Recuerda que lo que decimos de otros habla más de nosotros mismos.",
+    alentar: "¡Excelente! Has encendido una luz en el camino de alguien.",
+    ayudar: "Vibras Positivas: La ayuda desinteresada es la base de una vida plena."
 };
 
-async function registrar(tipo) {
-    const mensaje = prompt(`[Puerta: ${tipo}]\n¿Qué sucedió o qué pensaste?`);
+function registrar(tipo) {
+    const mensaje = prompt(`[Puerta ${tipo}] ¿Qué pasó hoy?`);
+    if (!mensaje) return;
+
+    const respuestaIA = motorIA[tipo.toLowerCase()] || "Sigue vibrando alto.";
     
-    if (mensaje) {
-        let mensajeConIA = mensaje;
+    // Crear objeto de acción
+    const accion = {
+        fecha: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+        tipo: tipo,
+        detalle: mensaje,
+        ia: respuestaIA
+    };
 
-        // --- LÓGICA DE INTERVENCIÓN DE LA IA ---
-        if (tipo === 'Criticar' || tipo === 'Chismear') {
-            const categoria = tipo.toLowerCase();
-            const frases = respuestasIA[categoria];
-            const sugerenciaIA = frases[Math.floor(Math.random() * frases.length)];
-            
-            // La IA añade su granito de arena automáticamente
-            mensajeConIA = `${mensaje} \n\n✨ ${sugerenciaIA}`;
-            
-            alert(`🤖 La IA de Vibras Positivas ha analizado tu entrada y añadió una reflexión a tu diario.`);
-        }
+    // Guardar en LocalStorage
+    let historial = JSON.parse(localStorage.getItem('vibras_pro')) || [];
+    historial.push(accion);
+    localStorage.setItem('vibras_pro', JSON.stringify(historial));
 
-        const ahora = new Date().toLocaleString([], { day:'2-digit', month:'2-digit', hour: '2-digit', minute:'2-digit' });
-        const accion = { fecha: ahora, puerta: tipo, detalle: mensajeConIA };
-
-        // Guardar en LocalStorage
-        let historial = JSON.parse(localStorage.getItem('vibras_history')) || [];
-        historial.push(accion);
-        localStorage.setItem('vibras_history', JSON.stringify(historial));
-        
-        // Refrescar la pantalla para ver el cambio
-        location.reload(); 
-    }
+    actualizarLista();
+    alert(`🤖 IA Vibras Positivas dice: ${respuestaIA}`);
 }
+
+function actualizarLista() {
+    const lista = document.getElementById('lista-acciones');
+    const historial = JSON.parse(localStorage.getItem('vibras_pro')) || [];
+    lista.innerHTML = "";
+
+    historial.reverse().slice(0, 5).forEach(a => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${a.fecha} - ${a.tipo}:</strong> ${a.detalle}<br><small style="color:var(--oro)">${a.ia}</small>`;
+        lista.appendChild(li);
+    });
+}
+
+// Cargar al inicio
+document.addEventListener('DOMContentLoaded', actualizarLista);

@@ -1,17 +1,22 @@
 const motorIA = {
-    criticar: "Reflexión IA: ¿Esta crítica ayuda a construir o solo libera tensión negativa?",
-    chismear: "Reflexión IA: Recuerda que lo que decimos de otros habla más de nosotros mismos.",
-    alentar: "¡Excelente! Has encendido una luz en el camino de alguien.",
-    ayudar: "Vibras Positivas: La ayuda desinteresada es la base de una vida plena."
+    criticar: "IA Vibras: ¿Esta crítica te ayuda a crecer o solo libera negatividad?",
+    chismear: "IA Vibras: Lo que dices de otros revela tu propio estado interno.",
+    involucrarse: "IA Vibras: Involucrarte es el primer paso para el cambio real.",
+    alentar: "¡Gracias! Tu luz acaba de iluminar el día de alguien más.",
+    ayudar: "Vibras Positivas: La ayuda generosa es la semilla de la abundancia."
 };
 
+function togglePanel() {
+    const panel = document.getElementById('panelActivo');
+    panel.classList.toggle('activo');
+}
+
 function registrar(tipo) {
-    const mensaje = prompt(`[Puerta ${tipo}] ¿Qué pasó hoy?`);
+    const mensaje = prompt(`[Puerta ${tipo.toUpperCase()}] ¿Qué quieres registrar hoy?`);
     if (!mensaje) return;
 
     const respuestaIA = motorIA[tipo.toLowerCase()] || "Sigue vibrando alto.";
     
-    // Crear objeto de acción
     const accion = {
         fecha: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
         tipo: tipo,
@@ -19,13 +24,18 @@ function registrar(tipo) {
         ia: respuestaIA
     };
 
-    // Guardar en LocalStorage
+    // Guardar
     let historial = JSON.parse(localStorage.getItem('vibras_pro')) || [];
     historial.push(accion);
     localStorage.setItem('vibras_pro', JSON.stringify(historial));
 
     actualizarLista();
-    alert(`🤖 IA Vibras Positivas dice: ${respuestaIA}`);
+    
+    // Abrir el panel automáticamente para mostrar el registro
+    const panel = document.getElementById('panelActivo');
+    if (!panel.classList.contains('activo')) {
+        togglePanel();
+    }
 }
 
 function actualizarLista() {
@@ -33,12 +43,17 @@ function actualizarLista() {
     const historial = JSON.parse(localStorage.getItem('vibras_pro')) || [];
     lista.innerHTML = "";
 
-    historial.reverse().slice(0, 5).forEach(a => {
+    historial.reverse().slice(0, 10).forEach(a => {
         const li = document.createElement('li');
-        li.innerHTML = `<strong>${a.fecha} - ${a.tipo}:</strong> ${a.detalle}<br><small style="color:var(--oro)">${a.ia}</small>`;
+        li.innerHTML = `
+            <span style="color:var(--oro); font-weight:bold;">[${a.tipo}]</span> 
+            <small>${a.fecha}</small><br>
+            "${a.detalle}"<br>
+            <em style="color:#2a5a8a; font-size:0.8rem;">✨ ${a.ia}</em>
+        `;
         lista.appendChild(li);
     });
 }
 
-// Cargar al inicio
+// Inicializar lista al cargar
 document.addEventListener('DOMContentLoaded', actualizarLista);

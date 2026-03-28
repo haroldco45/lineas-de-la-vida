@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Líneas de la Vida | Vibras Positivas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Las Líneas de la Vida</h1>
+        <p class="slogan">¿Por qué puerta decidirás entrar hoy?</p>
+    </header>
+
+    <main class="escenario">
+        <div class="puerta roja" onclick="registrar('Criticar')">
+            <span class="label">Para criticar</span>
+            <div class="door-frame"></div>
+        </div>
+        <div class="puerta roja" onclick="registrar('Chismear')">
+            <span class="label">Para chismear</span>
+            <div class="door-frame"></div>
+        </div>
+        <div class="puerta azul-oscuro" onclick="registrar('Involucrarse')">
+            <span class="label">Para involucrarse</span>
+            <div class="door-frame"></div>
+        </div>
+        <div class="puerta azul-claro" onclick="registrar('Alentar')">
+            <span class="label">Para alentar</span>
+            <div class="door-frame"></div>
+        </div>
+        <div class="puerta azul-brillante" onclick="registrar('Ayudar')">
+            <span class="label">Para ayudar</span>
+            <div class="door-frame"></div>
+        </div>
+    </main>
+
+    <section id="registro-seccion">
+        <h3>Tu Actividad de Hoy</h3>
+        <ul id="lista-acciones">
+            </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Vibras Positivas. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

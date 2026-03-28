@@ -1,44 +1,24 @@
-body {
-    background: #f4f1ea; /* Color crema suave */
-    font-family: 'Georgia', serif;
-    color: #333;
-    text-align: center;
-    margin: 0;
+#registro-seccion {
+    max-width: 600px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    max-height: 400px;
+    overflow-y: auto; /* Permite scroll si hay muchos datos */
 }
 
-.escenario {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 300px;
-    gap: 20px;
-    padding: 50px;
-    background: linear-gradient(to bottom, #ffffff, #e6e6e6);
-    border-bottom: 5px solid #d4af37; /* Detalle dorado */
+#lista-acciones {
+    list-style: none;
+    padding: 0;
+    text-align: left;
 }
 
-.puerta {
-    width: 80px;
-    height: 120px;
-    cursor: pointer;
-    transition: transform 0.3s;
-    position: relative;
-    border: 3px solid #333;
-}
-
-.puerta:hover {
-    transform: scale(1.1);
-}
-
-.roja { background-color: #b32d2d; border-color: #ffd700; }
-.azul-oscuro { background-color: #1a2a44; border-color: #ffd700; }
-.azul-claro { background-color: #2a5a8a; border-color: #ffd700; }
-.azul-brillante { background-color: #007bff; border-color: #ffd700; box-shadow: 0 0 15px #007bff; }
-
-.label {
-    position: absolute;
-    top: -30px;
-    width: 100%;
+.badge {
+    background: #d4af37;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
     font-size: 0.8rem;
-    font-weight: bold;
 }

@@ -4,48 +4,262 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Las Líneas de la Vida | Vibras Positivas</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- DISEÑO PREMIUM 3D --- */
+        :root {
+            --dorado: #d4af37;
+            --crema: #fdfaf2;
+            --rojo: #b02a2a;
+            --azul-oscuro: #1a2a44;
+            --azul-claro: #345e8a;
+            --azul-glow: #007bff;
+        }
+
+        body {
+            background-color: var(--crema);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 5px; color: #222; }
+        .slogan { font-style: italic; color: #666; }
+
+        /* Escenario de Puertas */
+        .escenario {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            perspective: 1000px;
+            gap: 25px;
+            padding: 80px 40px;
+            background: linear-gradient(to bottom, #ffffff, #eae6da);
+            width: 100%;
+            border-bottom: 6px solid var(--dorado);
+            box-sizing: border-box;
+        }
+
+        .puerta-contenedor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .label {
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #444;
+        }
+
+        .puerta {
+            width: 85px;
+            height: 130px;
+            cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 2px solid var(--dorado);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .puerta:hover {
+            transform: rotateY(-35deg) translateZ(15px);
+            box-shadow: 15px 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Colores Específicos */
+        .p-criticar, .p-chismear { background-color: var(--rojo); }
+        .p-involucrarse { background-color: var(--azul-oscuro); }
+        .p-alentar { background-color: var(--azul-claro); }
+        .p-ayudar { 
+            background-color: var(--azul-glow); 
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.6);
+        }
+
+        /* Secciones de Datos */
+        section {
+            width: 90%;
+            max-width: 600px;
+            margin: 30px 0;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        h3 { border-bottom: 2px solid var(--dorado); padding-bottom: 10px; }
+
+        ul { list-style: none; padding: 0; }
+        li { 
+            padding: 12px; 
+            border-bottom: 1px solid #eee; 
+            font-size: 0.95rem; 
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            color: white;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        footer { margin-top: auto; padding: 40px; text-align: center; font-size: 0.8rem; color: #888; }
+    </style>
 </head>
 <body>
 
     <header>
         <h1>Las Líneas de la Vida</h1>
-        <p class="slogan">¿Por qué puerta decidirás entrar hoy?</p>
+        <p class="slogan">Un proyecto de transformación personal</p>
     </header>
 
     <main class="escenario">
-        <div class="puerta roja" onclick="registrar('Criticar')">
-            <span class="label">Para criticar</span>
-            <div class="door-frame"></div>
+        <div class="puerta-contenedor">
+            <span class="label">Criticar</span>
+            <div class="puerta p-criticar" onclick="registrar('Criticar')"></div>
         </div>
-        <div class="puerta roja" onclick="registrar('Chismear')">
-            <span class="label">Para chismear</span>
-            <div class="door-frame"></div>
+        <div class="puerta-contenedor">
+            <span class="label">Chismear</span>
+            <div class="puerta p-chismear" onclick="registrar('Chismear')"></div>
         </div>
-        <div class="puerta azul-oscuro" onclick="registrar('Involucrarse')">
-            <span class="label">Para involucrarse</span>
-            <div class="door-frame"></div>
+        <div class="puerta-contenedor">
+            <span class="label">Involucrarse</span>
+            <div class="puerta p-involucrarse" onclick="registrar('Involucrarse')"></div>
         </div>
-        <div class="puerta azul-claro" onclick="registrar('Alentar')">
-            <span class="label">Para alentar</span>
-            <div class="door-frame"></div>
+        <div class="puerta-contenedor">
+            <span class="label">Alentar</span>
+            <div class="puerta p-alentar" onclick="registrar('Alentar')"></div>
         </div>
-        <div class="puerta azul-brillante" onclick="registrar('Ayudar')">
-            <span class="label">Para ayudar</span>
-            <div class="door-frame"></div>
+        <div class="puerta-contenedor">
+            <span class="label">Ayudar</span>
+            <div class="puerta p-ayudar" onclick="registrar('Ayudar')"></div>
         </div>
     </main>
 
-    <section id="registro-seccion">
-        <h3>Tu Actividad de Hoy</h3>
-        <ul id="lista-acciones">
-            </ul>
+    <section id="diario-privado">
+        <h3>Tu Diario de Decisiones</h3>
+        <ul id="lista-acciones"></ul>
+    </section>
+
+    <section id="muro-comunidad">
+        <h3>Muro de Inspiración Global</h3>
+        <p style="font-size: 0.8rem; color: grey;">Acciones positivas compartidas anónimamente.</p>
+        <ul id="lista-muro">
+            <li><em>Conecta Firebase para ver mensajes de la comunidad...</em></li>
+        </ul>
     </section>
 
     <footer>
-        <p>&copy; 2026 Vibras Positivas. Todos los derechos reservados.</p>
+        <p>© 2026 Vibras Positivas. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <script>
+        // --- CONFIGURACIÓN ---
+        // Pega aquí tus credenciales de Firebase cuando las tengas:
+        /*
+        const firebaseConfig = { ... };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const muroRef = database.ref('muro-vibras');
+        */
+
+        // --- LÓGICA PRINCIPAL ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarHistorialLocal();
+            // Escuchar Firebase si está configurado
+            if (typeof database !== 'undefined') {
+                escucharMuro();
+            }
+        });
+
+        async function registrar(tipo) {
+            const mensaje = prompt(`[Puerta: ${tipo}]\n¿Qué sucedió o qué pensaste?`);
+            
+            if (mensaje) {
+                const ahora = new Date().toLocaleString([], { day:'2-digit', month:'2-digit', hour: '2-digit', minute:'2-digit' });
+                const accion = { fecha: ahora, puerta: tipo, detalle: mensaje };
+
+                // 1. Guardar Localmente (Privacidad total)
+                guardarLocal(accion);
+                
+                // 2. Lógica de Comunidad (Solo Alentar/Ayudar)
+                if ((tipo === 'Alentar' || tipo === 'Ayudar') && typeof database !== 'undefined') {
+                    if (confirm("¿Quieres compartir esto anónimamente para inspirar a otros?")) {
+                        database.ref('muro-vibras').push({
+                            puerta: tipo,
+                            detalle: mensaje,
+                            timestamp: Date.now()
+                        });
+                    }
+                }
+
+                // 3. Simulación de IA (Fase futura)
+                if (tipo === 'Criticar' || tipo === 'Chismear') {
+                    console.log("IA analizando impacto...");
+                    // Aquí irá el llamado a la API de IA en la Fase 3
+                }
+            }
+        }
+
+        function guardarLocal(accion) {
+            let historial = JSON.parse(localStorage.getItem('vibras_history')) || [];
+            historial.push(accion);
+            localStorage.setItem('vibras_history', JSON.stringify(historial));
+            renderizarAccion(accion, 'lista-acciones');
+        }
+
+        function cargarHistorialLocal() {
+            const historial = JSON.parse(localStorage.getItem('vibras_history')) || [];
+            historial.reverse().forEach(a => renderizarAccion(a, 'lista-acciones'));
+        }
+
+        function renderizarAccion(a, idLista) {
+            const lista = document.getElementById(idLista);
+            const li = document.createElement('li');
+            const color = a.puerta === 'Criticar' || a.puerta === 'Chismear' ? 'var(--rojo)' : 'var(--azul-claro)';
+            
+            li.innerHTML = `
+                <span class="badge" style="background:${color}">${a.puerta}</span>
+                <small>${a.fecha}</small><br>
+                <div style="margin-top:5px;">${a.detalle}</div>
+            `;
+            lista.prepend(li);
+        }
+
+        function escucharMuro() {
+            database.ref('muro-vibras').limitToLast(5).on('child_added', (snap) => {
+                const data = snap.val();
+                const listaMuro = document.getElementById('lista-muro');
+                // Limpiar mensaje de espera la primera vez
+                if (listaMuro.innerText.includes("Conecta Firebase")) listaMuro.innerHTML = "";
+                
+                const li = document.createElement('li');
+                li.innerHTML = `⭐ <strong>${data.puerta}:</strong> "${data.detalle}"`;
+                listaMuro.prepend(li);
+            });
+        }
+    </script>
 </body>
 </html>

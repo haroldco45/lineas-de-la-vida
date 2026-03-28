@@ -1,24 +1,181 @@
-#registro-seccion {
-    max-width: 600px;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    max-height: 400px;
-    overflow-y: auto; /* Permite scroll si hay muchos datos */
+/* --- CONFIGURACIÓN DE COLORES Y VARIABLES --- */
+:root {
+    --dorado: #d4af37;
+    --crema: #fdfaf2;
+    --rojo: #b02a2a;
+    --azul-oscuro: #1a2a44;
+    --azul-claro: #345e8a;
+    --azul-glow: #007bff;
+    --sombra: rgba(0, 0, 0, 0.2);
 }
 
-#lista-acciones {
-    list-style: none;
-    padding: 0;
-    text-align: left;
+/* --- ESTILO BASE --- */
+body {
+    background-color: var(--crema);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+header {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+h1 { 
+    font-size: 2.2rem; 
+    margin-bottom: 5px; 
+    color: #222; 
+    letter-spacing: -1px;
+}
+
+.slogan { 
+    font-style: italic; 
+    color: #777; 
+    font-size: 0.9rem;
+}
+
+/* --- ESCENARIO DE LAS PUERTAS (3D) --- */
+.escenario {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    perspective: 1200px; /* Profundidad de campo */
+    gap: 20px;
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, #ffffff, #eae6da);
+    width: 100%;
+    border-bottom: 5px solid var(--dorado);
+    box-sizing: border-box;
+}
+
+.puerta-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.label {
+    font-weight: 700;
+    font-size: 0.75rem;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+    text-align: center;
+    min-height: 20px;
+}
+
+/* Estructura de la Puerta */
+.puerta {
+    width: 75px;
+    height: 120px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 35px var(--sombra);
+    border: 2px solid var(--dorado);
+    border-radius: 3px 3px 0 0;
+}
+
+/* Efecto de Apertura al pasar el mouse */
+.puerta:hover {
+    transform: rotateY(-40deg) translateZ(20px);
+    box-shadow: 20px 20px 40px rgba(0,0,0,0.4);
+}
+
+/* Colores de las Puertas */
+.p-criticar, .p-chismear { background-color: var(--rojo); }
+.p-involucrarse { background-color: var(--azul-oscuro); }
+.p-alentar { background-color: var(--azul-claro); }
+.p-ayudar { 
+    background-color: var(--azul-glow); 
+    box-shadow: 0 0 25px rgba(0, 123, 255, 0.7);
+    border-color: #fff; /* Resalta más */
+}
+
+/* --- SECCIONES DE CONTENIDO (DIARIO Y MURO) --- */
+section {
+    width: 90%;
+    max-width: 550px;
+    margin: 25px 0;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+h3 { 
+    font-size: 1.1rem;
+    border-bottom: 2px solid var(--dorado); 
+    padding-bottom: 8px;
+    margin-top: 0;
+}
+
+ul { 
+    list-style: none; 
+    padding: 0; 
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+li { 
+    padding: 15px; 
+    border-bottom: 1px solid #f0f0f0; 
+    font-size: 0.9rem; 
+    line-height: 1.4;
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .badge {
-    background: #d4af37;
+    font-size: 0.65rem;
+    padding: 2px 10px;
+    border-radius: 20px;
     color: white;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    margin-right: 10px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+/* --- AJUSTES PARA MÓVILES --- */
+@media (max-width: 600px) {
+    .escenario {
+        gap: 12px;
+        padding: 40px 10px;
+    }
+
+    .puerta {
+        width: 58px;
+        height: 100px;
+    }
+
+    .label {
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+    }
+
+    h1 { font-size: 1.8rem; }
+}
+
+/* --- FOOTER CRÉDITOS --- */
+footer { 
+    margin-top: 20px; 
+    padding: 30px; 
+    text-align: center; 
+    font-size: 0.75rem; 
+    color: #999;
+    border-top: 1px solid #eee;
+    width: 100%;
 }

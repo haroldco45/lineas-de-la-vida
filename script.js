@@ -1,46 +1,57 @@
-// Ejecutar al cargar la página para recuperar datos guardados
-document.addEventListener('DOMContentLoaded', () => {
-    cargarHistorial();
-});
+// --- MOTOR DE IA DE VIBRAS POSITIVAS ---
+const respuestasIA = {
+    criticar: [
+        "¿Esta crítica construye una mejor versión de ti o solo drena tu energía?",
+        "Recuerda: lo que ves en otros es a menudo un espejo de lo que debemos sanar en nosotros.",
+        "Transforma esta crítica en una petición amable. ¿Cómo podrías decir esto con amor?",
+        "Antes de criticar, asegúrate de haber caminado un kilómetro en sus zapatos."
+    ],
+    chismear: [
+        "Las palabras son semillas. ¿Qué estás sembrando hoy en el jardín de tu comunidad?",
+        "Si no es verdad, si no es bueno y si no es útil... ¿realmente vale la pena contarlo?",
+        "El chisme muere cuando llega al oído de una persona sabia. Sé tú ese final.",
+        "Eleva la conversación. Habla de ideas y sueños, no de personas."
+    ],
+    alentar: [
+        "¡Tu luz acaba de encender otra vela! Gracias por ser un motor de cambio.",
+        "Una palabra de aliento puede cambiar el destino de alguien hoy.",
+        "Eres un embajador de Vibras Positivas. ¡Sigue así!"
+    ]
+};
 
-function registrar(tipo) {
-    const mensaje = prompt(`Elegiste la puerta: ${tipo}. \n¿Qué acción o pensamiento tuviste?`);
+async function registrar(tipo) {
+    const mensaje = prompt(`[Puerta: ${tipo}]\n¿Qué sucedió o qué pensaste?`);
     
     if (mensaje) {
-        const ahora = new Date().toLocaleString();
-        const nuevaAccion = {
-            fecha: ahora,
-            puerta: tipo,
-            detalle: mensaje
-        };
+        let mensajeFinal = mensaje;
 
-        // 1. Obtener lo que ya existe en LocalStorage o crear un array vacío
-        let historial = JSON.parse(localStorage.getItem('historialLineasVida')) || [];
+        // --- INTERVENCIÓN DE LA IA ---
+        if (tipo === 'Criticar' || tipo === 'Chismear') {
+            const categoria = tipo.toLowerCase();
+            const sugerencia = respuestasIA[categoria][Math.floor(Math.random() * respuestasIA[categoria].length)];
+            
+            const quiereTransformar = confirm(`🤖 IA VIBRAS POSITIVAS:\n\nHe analizado tu entrada. Antes de guardar, considera esto:\n"${sugerencia}"\n\n¿Deseas añadir esta reflexión a tu diario junto a tu mensaje?`);
+            
+            if (quiereTransformar) {
+                mensajeFinal = `${mensaje} \n(Reflexión IA: ${sugerencia})`;
+            }
+        }
 
-        // 2. Agregar la nueva acción
-        historial.push(nuevaAccion);
+        const ahora = new Date().toLocaleString([], { day:'2-digit', month:'2-digit', hour: '2-digit', minute:'2-digit' });
+        const accion = { fecha: ahora, puerta: tipo, detalle: mensajeFinal };
 
-        // 3. Guardar de nuevo en LocalStorage
-        localStorage.setItem('historialLineasVida', JSON.stringify(historial));
-
-        // 4. Actualizar la vista
-        mostrarEnPantalla(nuevaAccion);
-        alert("Tu elección ha sido guardada permanentemente en este navegador.");
+        // Guardar y Renderizar
+        guardarLocal(accion);
+        
+        // Lógica de comunidad (se mantiene igual)
+        if ((tipo === 'Alentar' || tipo === 'Ayudar') && typeof database !== 'undefined') {
+            if (confirm("¿Quieres compartir esto anónimamente para inspirar a otros?")) {
+                database.ref('muro-vibras').push({
+                    puerta: tipo,
+                    detalle: mensajeFinal,
+                    timestamp: Date.now()
+                });
+            }
+        }
     }
-}
-
-function mostrarEnPantalla(accion) {
-    const lista = document.getElementById('lista-acciones');
-    const li = document.createElement('li');
-    li.style.padding = "10px";
-    li.style.borderBottom = "1px solid #ddd";
-    li.innerHTML = `<strong>${accion.fecha}</strong> - <span class="badge">${accion.puerta}</span>: ${accion.detalle}`;
-    lista.prepend(li);
-}
-
-function cargarHistorial() {
-    const historial = JSON.parse(localStorage.getItem('historialLineasVida')) || [];
-    historial.forEach(accion => {
-        mostrarEnPantalla(accion);
-    });
 }
